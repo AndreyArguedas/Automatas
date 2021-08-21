@@ -1,0 +1,60 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      1405,         50]
+NotebookOptionsPosition[       930,         33]
+NotebookOutlinePosition[      1329,         49]
+CellTagsIndexPosition[      1286,         46]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Soluci\[OAcute]n de la Tarea 2", "Section",
+ CellChangeTimes->{{3.8384148010868635`*^9, 
+  3.838414807686823*^9}},ExpressionUUID->"53c12bd0-0bdf-42b9-b6d2-\
+0a2585a4cd77"],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.838414794118496*^9, 
+  3.8384147952619033`*^9}},ExpressionUUID->"a7ef3ce1-11c7-4020-a865-\
+98b11a7c28f6"]
+}, Open  ]]
+},
+WindowSize->{1920, 997},
+WindowMargins->{{-8, Automatic}, {Automatic, -8}},
+FrontEndVersion->"12.3 para Microsoft Windows (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"3475b9d5-fa12-422b-816d-7300a4faa972"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 177, 3, 67, "Section",ExpressionUUID->"53c12bd0-0bdf-42b9-b6d2-0a2585a4cd77"],
+Cell[760, 27, 154, 3, 29, "Input",ExpressionUUID->"a7ef3ce1-11c7-4020-a865-98b11a7c28f6"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
