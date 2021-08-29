@@ -1,0 +1,310 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     13623,        302]
+NotebookOptionsPosition[     12612,        276]
+NotebookOutlinePosition[     13009,        292]
+CellTagsIndexPosition[     12966,        289]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+ "Ejercicio : ",
+ StyleBox["Bibliograf\[IAcute]a Anotada y Programaci\[OAcute]n",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]]
+}], "Title",
+ CellChangeTimes->{{3.8381162583474092`*^9, 3.838116278077403*^9}, {
+  3.838116418812098*^9, 3.8381164251150618`*^9}, {3.8392442291463633`*^9, 
+  3.839244244916809*^9}},ExpressionUUID->"966974ba-4bbd-4d5a-a4dc-\
+60cb26c8b3b8"],
+
+Cell["Estudiante : Andrey Arguedas Espinoza - 2020426569 ", "Author",
+ CellChangeTimes->{{3.838116297423704*^9, 3.838116320897497*^9}, {
+  3.839244258598306*^9, 
+  3.8392442951071615`*^9}},ExpressionUUID->"2e4558bb-7dcd-4bef-817e-\
+7f674c001b59"],
+
+Cell[BoxData["\[IndentingNewLine]"], "Input",
+ CellChangeTimes->{
+  3.839244299893285*^9},ExpressionUUID->"270bd860-d6e6-45ff-8555-\
+76b6e8940aa5"],
+
+Cell[CellGroupData[{
+
+Cell["Bibliograf\[IAcute]a Anotada", "Section",
+ CellChangeTimes->{{3.839244381532095*^9, 
+  3.839244392113633*^9}},ExpressionUUID->"69314040-3686-4592-aa07-\
+a8ff03d79d45"],
+
+Cell[TextData[{
+ StyleBox["Classification of Sequential Sports Using Automata Theory", 
+  "Subtitle"],
+ "\n\n",
+ StyleBox["Este art\[IAcute]culo analiza c\[OAcute]mo mediante las reglas de \
+un deporte se puede modelar los resultados ganadores mediante la definici\
+\[OAcute]n de eventos gobernados por las reglas del mismo, este estudio se \
+realiza sobre deportes que son considerados dentro de la categor\[IAcute]a ",
+  FontColor->GrayLevel[0]],
+ StyleBox["\[OpenCurlyDoubleQuote]Agon\[CloseCurlyDoubleQuote]",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox[", los cuales buscan mediante la competici\[OAcute]n de equipos o \
+individuos que haya un ganador, el estudio se concentra en c\[OAcute]mo \
+llegar al estado final del juego el cual dicta al ganador.\n\nPara analizar \
+un deporte mediante este enfoque se define que todos los participantes se \
+adhieren a un sistema de reglas y se llega a un estado final donde un ganador \
+es anunciado. Observando las reglas de cada deporte se hace notar el hecho \
+que hay ciertas reglas que solo aplican en momentos espec\[IAcute]ficos, por \
+ejemplo cuando la carrera ya comenz\[OAcute], y que podr\[IAcute]a dejar de \
+tener sentido al terminar el ",
+  FontColor->GrayLevel[0]],
+ StyleBox["hit",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox[", por lo que los autores dividen las reglas en dos \
+categor\[IAcute]as: Reglas de juego y de evento, las primeras aplican durante \
+todo el juego y las segundas s\[OAcute]lo en ciertos eventos. Luego de tener \
+las reglas bien definidas se debe listar los eventos que aplican dentro del \
+deporte. Al haber terminado con estas clasificaciones los autores buscan \
+hacer representaciones formales utilizando Aut\[OAcute]matas de Estado \
+Finitos.\n\nEn una m\[AAcute]quina de estados finitos se debe capturar todos \
+los estados posibles, todos los cambios de estados posibles y las entradas \
+requeridas para que un sistema cambie de un estado a otro. Los autores buscan \
+que mediante el aut\[OAcute]mata se obtenga el ganador, mediante el uso de \
+entradas que ser\[IAcute]an la secuencia de eventos.\n\nAntes de aplicar la \
+metodolog\[IAcute]a de los autores estos notan que en ciertos deportes hay \
+eventos que pueden ocurrir en cualquier momento y solo si lo desean los \
+participantes, para hacer una mejor distinci\[OAcute]n dividen los deportes \
+en dos categor\[IAcute]as ",
+  FontColor->GrayLevel[0]],
+ StyleBox["\[OpenCurlyDoubleQuote]purposive\[CloseCurlyDoubleQuote]",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox[" y ",
+  FontColor->GrayLevel[0]],
+ StyleBox["est\[EAcute]ticos",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox[", en los purposive solamente importa el ganar y no como se \
+desarrolla el juego mientras este dentro de las reglas, los est\[EAcute]ticos \
+se caracterizan por ser importante la forma (normalmente son juzgados) para \
+lograr el objetivo.\n\nLos autores visualizan que las reglas son las que \
+dictan el resultado de un evento, es decir el siguiente estado, los eventos \
+siguen una secuencia l\[OAcute]gica dictada por las reglas que aplican para \
+el evento en los deportes purposive, los esteticos no lo siguen y no lo \
+requieren, por lo que los autores los categorizan como Deportes no \
+secuenciales. Por lo que los Purposive se categorizan como secuenciales y los \
+est\[EAcute]ticos como No secuenciales.\n\nLos deportes secuenciales tienen \
+un n\[UAcute]mero finito de eventos, adem\[AAcute]s en estos se captura la \
+ocurrencia del evento que lleva a determinar el resultado del juego. Los \
+autores se concentraron en este tipo de deportes para el estudio con Aut\
+\[OAcute]matas Finitos y determinar c\[OAcute]mo se define un ganador.\n\nLos \
+autores enlistan varios estados en los que el juego puede existir, \
+as\[IAcute] como las reglas que son aplicables para cada evento y construyen \
+los aut\[OAcute]matas para cada uno, en este resumen veremos el ejemplo del \
+deporte Shot Put.\n\nSistema de reglas :\n\nDespu\[EAcute]s de tomar posici\
+\[OAcute]n los atletas deben pausar antes de tirar.\nLa pausa no puede ser \
+mayor a un minuto.\nEl tiro no puede bajar de la altura de sus hombros\nLos \
+atletas no pueden salir del c\[IAcute]rculo hasta que el tiro sea lanzado.\n\
+El tiro debe aterrizar dentro del sector valido.\n\nEventos :\nEl atleta toma \
+posici\[OAcute]n en la l\[IAcute]nea inicial\nEl atleta hace el tiro\nEl tiro \
+aterriza\n\nMediante el sistema de reglas y los eventos definidos se definen \
+las transiciones y estados para construir cada aut\[OAcute]mata.\n\n\n\
+Mediante los aut\[OAcute]matas finitos podemos obtener el lenguaje regular \
+del deporte, el cual es el set de secuencias de eventos aceptados por el \
+deporte, sabemos que tambi\[EAcute]n se pueden dar estados de descalificaci\
+\[OAcute]n pero en este estudio solo se enfocan en analizar la expresi\
+\[OAcute]n regular que lleva a determinar el ganador, por ejemplo con Shot \
+Put tenemos inicialmente el siguiente lenguaje : \n",
+  FontColor->GrayLevel[0]],
+ StyleBox["S(R) = f | th | tsm ",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox["\n\nPero la expresi\[OAcute]n que nos lleva a determinar el \
+ganador es solamente : \n",
+  FontColor->GrayLevel[0]],
+ StyleBox["S(r) = tsm",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox["\n\nLos autores por \[UAcute]ltimo realizan una clasificaci\
+\[OAcute]n basados en las observaciones de las expresiones regulares :\n\n",
+  FontColor->GrayLevel[0]],
+ StyleBox["1 - Tiempo de medici\[OAcute]n para decidir al ganador :",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox["  Las expresiones regulares que modelan estos deportes tienen en \
+com\[UAcute]n el estado que mide el tiempo, este indica al ganador basado en \
+el tiempo tomado por los participantes para completar la secuencia de \
+eventos, por ejemplo Hurdles y Track.\n",
+  FontColor->GrayLevel[0]],
+ StyleBox["2 - Medici\[OAcute]n de espacio :",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox["  En este caso se mide el alcance o espacio recorrido para \
+determinar el ganador, por ejemplo el salto largo o el shot put\n",
+  FontColor->GrayLevel[0]],
+ StyleBox["3 - Comparaci\[OAcute]n de puntos :  ",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox["En estos la expresi\[OAcute]n regular realizan una comparaci\
+\[OAcute]n de puntos, y la cantidad acumulada determina al ganador, para esta \
+clasificaci\[OAcute]n tenemos las siguientes subcategor\[IAcute]as :\nCondici\
+\[OAcute]n ganadora : Consideraremos la expresi\[OAcute]n regular del Boliche \
+la cual es ",
+  FontColor->GrayLevel[0]],
+ StyleBox["B(r) = resf | resres | resrp2s | resrp1s | rp1sres | rp1srp2s | \
+rp1srp1s | rp2s | rp1sf",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox[" , la ",
+  FontColor->GrayLevel[0]],
+ StyleBox["\[OpenCurlyDoubleQuote]s\[CloseCurlyDoubleQuote]",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox[" que indica la actualizaci\[OAcute]n de puntaje siempre est\
+\[AAcute] precedida por acciones las cuales son parte de la jugada de uno de \
+los participantes y lo hace independiente de los dem\[AAcute]s, \
+tambi\[EAcute]n se observa como el puntaje se actualiza hasta llegar a la \
+meta.\nCondici\[OAcute]n perdedora : Consideraremos la expresi\[OAcute]n \
+regular del B\[AAcute]dminton ",
+  FontColor->GrayLevel[0]],
+ StyleBox["V(r) = lfp2 | ls(h2h1)*d2p1 | ls(h2h1)*r2p1 | ls(h2h1)*h2r1p2 | \
+ls(h2h1)*h2d1p2",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox["\nPodemos observar como ",
+  FontColor->GrayLevel[0]],
+ StyleBox["\[OpenCurlyDoubleQuote]p2\[CloseCurlyDoubleQuote]",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox[", lo cual se refiere al equipo 2 siempre est\[AAcute] precedido \
+por una acci\[OAcute]n del equipo 1, por lo que en este deporte lo que \
+importa es no cometer un foul ya que el equipo que lo cometa pierde el punto, \
+las reglas no llevan a una actualizaci\[OAcute]n del puntaje es la condici\
+\[OAcute]n perdedora la que define al ganador.\nCondici\[OAcute]n de ganar y \
+perder : Para este ejemplo analizaremos la expresi\[OAcute]n regular de \
+Pacman, la cual es : ",
+  FontColor->GrayLevel[0]],
+ StyleBox["P(r) = m*(es)*m*okst | m*(es)*m*(oc)*m*kst | m*(es)*m*kst | \
+m*(es)*m* | esm*(es)*m*(oc)*m* | es(es)*m*okst | es(es)*m*(oc)*m*kst",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox[", en este caso tanto cuando un monstruo mata a pacman (",
+  FontColor->GrayLevel[0]],
+ StyleBox["k",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox["), o pacman come pac dots (",
+  FontColor->GrayLevel[0]],
+ StyleBox["e",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox[") se actualiza el puntaje, por lo que depende tanto de las \
+acciones de pacman como de los enemigos, tanto en condici\[OAcute]n ganadora \
+como perdedora el puntaje es actualizado.\n",
+  FontColor->GrayLevel[0]],
+ StyleBox["4 - Panel de Jueces :",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox[" En este tipo los jugadores solo se adhieren a las reglas y los \
+jueces se encargan de puntuar, por ejemplo podemos analizar el levantamiento \
+de pesas, cuya expresi\[OAcute]n regular es ",
+  FontColor->GrayLevel[0]],
+ StyleBox["W(r) = lps",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox[" , los eventos que preceden a ",
+  FontColor->GrayLevel[0]],
+ StyleBox["\[OpenCurlyDoubleQuote]s\[CloseCurlyDoubleQuote]",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox[" el cual es la actualizaci\[OAcute]n de puntaje son solamente el \
+levantamiento de las barras (",
+  FontColor->GrayLevel[0]],
+ StyleBox["l",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox[") y el bajarlas (",
+  FontColor->GrayLevel[0]],
+ StyleBox["p",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox["), estos eventos no tienen mayor variedad en la forma o el orden \
+que se realizan, la forma y t\[EAcute]cnica con que lo hagan es juzgada por \
+el panel de jueces.\n\nEn conclusi\[OAcute]n los autores hacen distintas \
+clasificaciones de los deportes tanto como de tipo como de conclusiones \
+ganadoras para los mismos, a estas conclusiones se lleg\[OAcute] gracias al \
+modelado por aut\[OAcute]matas finitos.",
+  FontColor->GrayLevel[0]],
+ "\n"
+}], "Text",
+ CellChangeTimes->{
+  3.8392444099193707`*^9, 3.8392444889318404`*^9, {3.8392446046232004`*^9, 
+   3.839244611067404*^9}, 3.8392446693519583`*^9, 3.8392447232429523`*^9, {
+   3.8392447553670244`*^9, 
+   3.839244758113138*^9}},ExpressionUUID->"f9d7070e-4a21-454a-b29f-\
+956d440987da"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["C\[OAcute]digo / Shot Put", "Section",
+ CellChangeTimes->{{3.838116341082303*^9, 3.83811635412709*^9}, {
+  3.8392448247731085`*^9, 
+  3.839244828083546*^9}},ExpressionUUID->"abb79256-c6c8-443b-9bde-\
+ecb3556b290e"],
+
+Cell[BoxData["\[IndentingNewLine]"], "Input",
+ CellChangeTimes->{
+  3.839244818427055*^9},ExpressionUUID->"ab603660-bdd7-41ff-b69d-\
+5db4696fbf86"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{958, 988},
+WindowMargins->{{Automatic, -7}, {Automatic, 0}},
+FrontEndVersion->"12.3 para Microsoft Windows (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"d1db0326-e26a-488c-a22e-19981912b96e"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 389, 9, 98, "Title",ExpressionUUID->"966974ba-4bbd-4d5a-a4dc-60cb26c8b3b8"],
+Cell[972, 33, 246, 4, 31, "Author",ExpressionUUID->"2e4558bb-7dcd-4bef-817e-7f674c001b59"],
+Cell[1221, 39, 147, 3, 50, "Input",ExpressionUUID->"270bd860-d6e6-45ff-8555-76b6e8940aa5"],
+Cell[CellGroupData[{
+Cell[1393, 46, 173, 3, 67, "Section",ExpressionUUID->"69314040-3686-4592-aa07-a8ff03d79d45"],
+Cell[1569, 51, 10608, 207, 2093, "Text",ExpressionUUID->"f9d7070e-4a21-454a-b29f-956d440987da"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12214, 263, 220, 4, 67, "Section",ExpressionUUID->"abb79256-c6c8-443b-9bde-ecb3556b290e"],
+Cell[12437, 269, 147, 3, 50, "Input",ExpressionUUID->"ab603660-bdd7-41ff-b69d-5db4696fbf86"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
