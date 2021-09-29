@@ -1,0 +1,1333 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     53561,       1325]
+NotebookOptionsPosition[     49038,       1239]
+NotebookOutlinePosition[     49435,       1255]
+CellTagsIndexPosition[     49392,       1252]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Ejercicio : Validez de un string en una GIC", "Title",
+ CellChangeTimes->{{3.8381162583474092`*^9, 3.838116278077403*^9}, {
+  3.838116418812098*^9, 3.8381164251150618`*^9}, {3.841502330324668*^9, 
+  3.8415023397639427`*^9}},ExpressionUUID->"b21543ac-161e-44ac-b2ac-\
+97b92f8a0374"],
+
+Cell[TextData[{
+ "Estudiante : ",
+ StyleBox["Andrey Arguedas Espinoza - 2020426569",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]]
+}], "Author",
+ CellChangeTimes->{{3.838116297423704*^9, 3.838116320897497*^9}, {
+  3.841501560007778*^9, 
+  3.8415015722137814`*^9}},ExpressionUUID->"8bf56136-4e2c-4502-842c-\
+1958f74b340d"],
+
+Cell[CellGroupData[{
+
+Cell["Explicaci\[OAcute]n (soluci\[OAcute]n)", "Section",
+ CellChangeTimes->{{3.8381163605904217`*^9, 
+  3.8381163761045*^9}},ExpressionUUID->"31c0f48a-e5b3-4b59-a5f5-2a92e73046db"],
+
+Cell[TextData[{
+ "Construiremos una funci\[OAcute]n que valide un string en una GIC con un \
+metodo que mejore el rendimiento del m\[EAcute]todo visto en clase.\nPara \
+esto utilizaremos  el metodo de la derivaci\[OAcute]n, para esto mediante un \
+string dado aplicaremos el siguiente pseudocodigo:\nSupongamos que recibimos \
+el string ",
+ StyleBox["a*(a+b00)",
+  FontWeight->"Bold"],
+ "\n- Tomamos el primer car\[AAcute]cter del string de Izquierda a Derecha ",
+ StyleBox["\[OpenCurlyDoubleQuote]a\[CloseCurlyDoubleQuote]\n- ",
+  FontWeight->"Bold"],
+ "Mediante las reglas de Producci\[OAcute]n revisamos si es posible llegar a ",
+ StyleBox["\[OpenCurlyDoubleQuote]a\[CloseCurlyDoubleQuote]",
+  FontWeight->"Bold"],
+ "; Si hay forma de llegar y no es el ultimo car\[AAcute]cter del String \
+insertamos ",
+ StyleBox["\[OpenCurlyDoubleQuote]a\[CloseCurlyDoubleQuote] ",
+  FontWeight->"Bold"],
+ "en un acumulador\n- Si tenemos s\[IAcute]mbolos como ",
+ StyleBox["\[OpenCurlyDoubleQuote]*\[CloseCurlyDoubleQuote] ",
+  FontWeight->"Bold"],
+ "o ",
+ StyleBox["\[OpenCurlyDoubleQuote]+\[CloseCurlyDoubleQuote] ",
+  FontWeight->"Bold"],
+ "debemos hacer un split en el s\[IAcute]mbolo y aplicar sobre el string \
+acumulador lo siguiente ",
+ StyleBox["\[OpenCurlyDoubleQuote]a*E\[CloseCurlyDoubleQuote]\n- ",
+  FontWeight->"Bold"],
+ "Si hay par\[EAcute]ntesis debemos pasar al string acumulador ",
+ StyleBox["(E)",
+  FontWeight->"Bold"],
+ " por ejemplo : ",
+ StyleBox["\[OpenCurlyDoubleQuote]a*(E)\[CloseCurlyDoubleQuote]\n",
+  FontWeight->"Bold"],
+ "- Finalmente si el String acumulador es igual a la expresi\[OAcute]n \
+original el string inicial es validado.",
+ StyleBox[" ",
+  FontWeight->"Bold"]
+}], "Text",
+ CellChangeTimes->{{3.841502348716764*^9, 3.8415023881426353`*^9}, {
+  3.84159828357031*^9, 3.841598381258852*^9}, {3.8415984161128736`*^9, 
+  3.8415986256025453`*^9}, {3.841598705985905*^9, 3.8415988583232346`*^9}, {
+  3.8415991079285574`*^9, 3.841599187802681*^9}, {3.841599231016618*^9, 
+  3.841599261867055*^9}},ExpressionUUID->"16a95486-e2bb-4b75-9a1a-\
+b691ce058fa9"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["C\[OAcute]digo", "Section",
+ CellChangeTimes->{{3.838116341082303*^9, 
+  3.83811635412709*^9}},ExpressionUUID->"d4de8f60-4f10-4017-b338-\
+33a41e67c2fd"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"rulesSet", "=", 
+  RowBox[{"{", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\"\<E\>\"", "\[Rule]", " ", "\"\<I\>\""}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"\"\<E\>\"", "\[Rule]", " ", "\"\<E+E\>\""}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"\"\<E\>\"", "\[Rule]", " ", "\"\<E*E\>\""}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"\"\<E\>\"", "\[Rule]", " ", "\"\<(E)\>\""}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"\"\<I\>\"", "\[Rule]", "\"\<a\>\""}], ",", "\[IndentingNewLine]", 
+    RowBox[{"\"\<I\>\"", "\[Rule]", "\"\<b\>\""}], ",", "\[IndentingNewLine]", 
+    RowBox[{"\"\<I\>\"", "\[Rule]", "\"\<Ia\>\""}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"\"\<I\>\"", "\[Rule]", "\"\<Ib\>\""}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"\"\<I\>\"", "\[Rule]", "\"\<I0\>\""}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"\"\<I\>\"", "\[Rule]", "\"\<I1\>\""}]}], "\[IndentingNewLine]", 
+   "}"}]}]], "Input",
+ CellChangeTimes->{{3.8415044312599306`*^9, 3.841504449866892*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"92095d78-88a1-49db-b613-c9064ff24218"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"\<\"E\"\>", "\[Rule]", "\<\"I\"\>"}], ",", 
+   RowBox[{"\<\"E\"\>", "\[Rule]", "\<\"E+E\"\>"}], ",", 
+   RowBox[{"\<\"E\"\>", "\[Rule]", "\<\"E*E\"\>"}], ",", 
+   RowBox[{"\<\"E\"\>", "\[Rule]", "\<\"(E)\"\>"}], ",", 
+   RowBox[{"\<\"I\"\>", "\[Rule]", "\<\"a\"\>"}], ",", 
+   RowBox[{"\<\"I\"\>", "\[Rule]", "\<\"b\"\>"}], ",", 
+   RowBox[{"\<\"I\"\>", "\[Rule]", "\<\"Ia\"\>"}], ",", 
+   RowBox[{"\<\"I\"\>", "\[Rule]", "\<\"Ib\"\>"}], ",", 
+   RowBox[{"\<\"I\"\>", "\[Rule]", "\<\"I0\"\>"}], ",", 
+   RowBox[{"\<\"I\"\>", "\[Rule]", "\<\"I1\"\>"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.8415046181018867`*^9, 3.8415058025805607`*^9, 
+  3.841520269699538*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"061f6313-69a2-4f87-942a-25e3d1f1533d"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"ProductionRule", "[", 
+    RowBox[{"s0_", ",", "rules_", ",", "n_"}], "]"}], ":=", 
+   RowBox[{"Union", "[", 
+    RowBox[{"Flatten", "[", 
+     RowBox[{"NestList", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Flatten", "[", 
+         RowBox[{"StringReplaceList", "[", 
+          RowBox[{"#", ",", "rules"}], "]"}], "]"}], "&"}], ",", "s0", ",", 
+       "n"}], "]"}], "]"}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.84150462862908*^9, 3.8415046309441547`*^9}, {
+  3.8415051852071733`*^9, 3.841505193398369*^9}, {3.841505268929428*^9, 
+  3.8415052703041067`*^9}},
+ CellLabel->"In[2]:=",ExpressionUUID->"699470da-aca1-40d7-9946-de31f499d8c4"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"derivativeMethod", "[", 
+   RowBox[{"start_", ",", " ", "expression_", ",", " ", "rules_"}], "]"}], 
+  " ", ":=", " ", 
+  RowBox[{"NestWhileList", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"StringReplaceList", "[", 
+      RowBox[{"#", ",", "rules"}], "]"}], "&"}], ",", "start", ",", 
+    "expression"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.8415046743945*^9, 3.841504716976366*^9}, {
+  3.8415058991344166`*^9, 3.841505905708537*^9}, {3.8415059684684772`*^9, 
+  3.841505996012332*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"0ef05ae1-4be9-47c5-8df1-777af92f0e13"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"myTree", " ", "=", " ", 
+  RowBox[{"RulesTree", "[", 
+   RowBox[{"\"\<E\>\"", " ", "->", " ", 
+    RowBox[{"{", " ", 
+     RowBox[{
+      RowBox[{"\"\<I\>\"", " ", "->", " ", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<a\>\"", ",", " ", "\"\<b\>\"", ",", "\"\<Ia\>\"", ",", 
+         "\"\<Ib\>\"", ",", "\"\<I0\>\"", ",", "\"\<I1\>\""}], "}"}]}], ",", 
+      "\"\<E+E\>\"", ",", "\"\<E*E\>\"", ",", "\"\<(E)\>\""}], "}"}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.841520275841605*^9, 3.841520292272626*^9}, {
+  3.8415203534427023`*^9, 3.841520508721916*^9}, {3.841520633779563*^9, 
+  3.841520637434057*^9}},
+ CellLabel->"In[9]:=",ExpressionUUID->"c188966d-bce9-4b1e-8dab-a46babc16566"],
+
+Cell[BoxData[
+ GraphicsBox[
+  NamespaceBox["Trees",
+   DynamicModuleBox[{Typeset`tree = HoldComplete[
+     Tree["E", {
+       Tree["I", {
+         Tree["a", None], 
+         Tree["b", None], 
+         Tree["Ia", None], 
+         Tree["Ib", None], 
+         Tree["I0", None], 
+         Tree["I1", None]}], 
+       Tree["E+E", None], 
+       Tree["E*E", None], 
+       Tree["(E)", None]}]]}, {
+     {RGBColor[0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+      AbsoluteThickness[1], Opacity[0.7], 
+      StyleBox[{
+        LineBox[{{2.2188007849009166`, 1.1094003924504583`}, {
+         1.386750490563073, 0.5547001962252291}}], 
+        LineBox[{{2.2188007849009166`, 1.1094003924504583`}, {
+         1.9414506867883021`, 0.5547001962252291}}], 
+        LineBox[{{2.2188007849009166`, 1.1094003924504583`}, {
+         2.4961508830135313`, 0.5547001962252291}}], 
+        LineBox[{{2.2188007849009166`, 1.1094003924504583`}, {
+         3.05085107923876, 0.5547001962252291}}], 
+        LineBox[{{1.386750490563073, 0.5547001962252291}, {0., 0.}}], 
+        LineBox[{{1.386750490563073, 0.5547001962252291}, {0.5547001962252291,
+          0.}}], LineBox[{{1.386750490563073, 0.5547001962252291}, {
+         1.1094003924504583`, 0.}}], 
+        LineBox[{{1.386750490563073, 0.5547001962252291}, {
+         1.6641005886756874`, 0.}}], 
+        LineBox[{{1.386750490563073, 0.5547001962252291}, {
+         2.2188007849009166`, 0.}}], 
+        LineBox[{{1.386750490563073, 0.5547001962252291}, {2.773500981126146, 
+         0.}}]},
+       GraphicsHighlightColor->RGBColor[
+        0.403921568627451, 0.8705882352941177, 0.7176470588235294]]}, 
+     {GrayLevel[0], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+      StyleBox[{InsetBox[
+         FrameBox["\<\"E\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->4,
+          StripOnInput->False], {2.2188007849009166, 1.1094003924504583}], 
+        InsetBox[
+         FrameBox["\<\"I\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->4,
+          StripOnInput->False], {1.386750490563073, 0.5547001962252291}], 
+        InsetBox[
+         FrameBox["\<\"a\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {0., 0.}], InsetBox[
+         FrameBox["\<\"b\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {0.5547001962252291, 0.}], InsetBox[
+         FrameBox["\<\"Ia\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {1.1094003924504583, 0.}], InsetBox[
+         FrameBox["\<\"Ib\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {1.6641005886756874, 0.}], InsetBox[
+         FrameBox["\<\"I0\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {2.2188007849009166, 0.}], InsetBox[
+         FrameBox["\<\"I1\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {2.773500981126146, 0.}], InsetBox[
+         FrameBox["\<\"E+E\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {1.9414506867883021, 0.5547001962252291}], 
+        InsetBox[
+         FrameBox["\<\"E*E\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {2.4961508830135313, 0.5547001962252291}], 
+        InsetBox[
+         FrameBox["\<\"(E)\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {3.05085107923876, 0.5547001962252291}]},
+       GraphicsHighlightColor->RGBColor[
+        0.403921568627451, 0.8705882352941177, 0.7176470588235294]]}}]],
+  BaseStyle->{
+   FrontEnd`GraphicsHighlightColor -> 
+    RGBColor[0.403921568627451, 0.8705882352941177, 0.7176470588235294]},
+  FormatType->StandardForm,
+  FrameTicks->None]], "Output",
+ CellChangeTimes->{
+  3.841520420077488*^9, 3.841520464769925*^9, 3.8415205122736597`*^9, {
+   3.8415206412867765`*^9, 3.841520644657693*^9}},
+ CellLabel->"Out[9]=",ExpressionUUID->"95b3b77b-da67-4e68-9e81-2fe6d9c39557"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TreePosition", "[", 
+  RowBox[{"myTree", ",", " ", "\"\<a\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.8415207020950713`*^9, 3.8415207530432324`*^9}},
+ CellLabel->"In[12]:=",ExpressionUUID->"f76440f7-7a94-4035-ad20-fd35aa845731"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{"1", ",", "1"}], "}"}], "}"}]], "Output",
+ CellChangeTimes->{{3.8415207138146544`*^9, 3.841520754953089*^9}},
+ CellLabel->"Out[12]=",ExpressionUUID->"4828eeed-859b-41d9-b708-d2b9da975ce7"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.841520332774866*^9, 
+  3.8415203327788553`*^9}},ExpressionUUID->"7cfe5a4a-687f-4a78-95af-\
+9ced0317379f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TreeExpression", "[", "myTree", "]"}]], "Input",
+ CellChangeTimes->{{3.8415208278242455`*^9, 3.8415208315902643`*^9}},
+ CellLabel->"In[13]:=",ExpressionUUID->"5b91b61f-3141-4455-8c04-c4e853e577d6"],
+
+Cell[BoxData[
+ RowBox[{"\<\"E\"\>", "[", 
+  RowBox[{
+   RowBox[{"\<\"I\"\>", "[", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"b\"\>", ",", "\<\"Ia\"\>", 
+     ",", "\<\"Ib\"\>", ",", "\<\"I0\"\>", ",", "\<\"I1\"\>"}], "]"}], 
+   ",", "\<\"E+E\"\>", ",", "\<\"E*E\"\>", ",", "\<\"(E)\"\>"}], 
+  "]"}]], "Output",
+ CellChangeTimes->{3.841520832844578*^9},
+ CellLabel->"Out[13]=",ExpressionUUID->"a20e9c36-381f-4ff3-9920-83dde894699d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"rulesSetSimplified", "=", 
+  RowBox[{"{", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\"\<E\>\"", "\[Rule]", " ", "\"\<I\>\""}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"\"\<E\>\"", "\[Rule]", " ", "\"\<E+E\>\""}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"\"\<E\>\"", "\[Rule]", " ", "\"\<E*E\>\""}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"\"\<E\>\"", "\[Rule]", " ", "\"\<(E)\>\""}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"\"\<I\>\"", "\[Rule]", "\"\<a\>\""}], ",", "\[IndentingNewLine]", 
+    RowBox[{"\"\<I\>\"", "\[Rule]", "\"\<b\>\""}], ",", "\[IndentingNewLine]", 
+    RowBox[{"\"\<I\>\"", "\[Rule]", "\"\<0\>\""}], ",", "\[IndentingNewLine]", 
+    RowBox[{"\"\<I\>\"", "\[Rule]", "\"\<1\>\""}]}], "\[IndentingNewLine]", 
+   "}"}]}]], "Input",
+ CellChangeTimes->{{3.8415992985917587`*^9, 3.841599315062772*^9}},
+ CellLabel->"In[41]:=",ExpressionUUID->"358e2502-7ede-4fc3-9595-ee1599769014"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"\<\"E\"\>", "\[Rule]", "\<\"I\"\>"}], ",", 
+   RowBox[{"\<\"E\"\>", "\[Rule]", "\<\"E+E\"\>"}], ",", 
+   RowBox[{"\<\"E\"\>", "\[Rule]", "\<\"E*E\"\>"}], ",", 
+   RowBox[{"\<\"E\"\>", "\[Rule]", "\<\"(E)\"\>"}], ",", 
+   RowBox[{"\<\"I\"\>", "\[Rule]", "\<\"a\"\>"}], ",", 
+   RowBox[{"\<\"I\"\>", "\[Rule]", "\<\"b\"\>"}], ",", 
+   RowBox[{"\<\"I\"\>", "\[Rule]", "\<\"0\"\>"}], ",", 
+   RowBox[{"\<\"I\"\>", "\[Rule]", "\<\"1\"\>"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.8415994296026373`*^9, 3.841600285086454*^9, 
+  3.841777421208168*^9},
+ CellLabel->"Out[41]=",ExpressionUUID->"1378b27b-7354-4478-8ff6-4de4db854320"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Characters", "[", "\"\<a*(a+b00)\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.8415994359068904`*^9, 3.841599454594838*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"c4fcd87d-52a6-4723-b53e-fb776510718d"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"a\"\>", ",", "\<\"*\"\>", ",", "\<\"(\"\>", ",", "\<\"a\"\>", 
+   ",", "\<\"+\"\>", ",", "\<\"b\"\>", ",", "\<\"0\"\>", ",", "\<\"0\"\>", 
+   ",", "\<\")\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{3.8415994567368774`*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"f8e03e2a-65ec-4d82-bd2e-703d5104b01b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Fold", "[", 
+  RowBox[{"f", ",", "x", ",", " ", 
+   RowBox[{"Characters", "[", "\"\<a*(a+b00)\>\"", "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.8415996173450556`*^9, 3.8415996318551702`*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"f4a6c2fa-30a6-41c8-8ba9-827c523f6c2e"],
+
+Cell[BoxData[
+ RowBox[{"f", "[", 
+  RowBox[{
+   RowBox[{"f", "[", 
+    RowBox[{
+     RowBox[{"f", "[", 
+      RowBox[{
+       RowBox[{"f", "[", 
+        RowBox[{
+         RowBox[{"f", "[", 
+          RowBox[{
+           RowBox[{"f", "[", 
+            RowBox[{
+             RowBox[{"f", "[", 
+              RowBox[{
+               RowBox[{"f", "[", 
+                RowBox[{
+                 RowBox[{"f", "[", 
+                  RowBox[{"x", ",", "\<\"a\"\>"}], "]"}], ",", "\<\"*\"\>"}], 
+                "]"}], ",", "\<\"(\"\>"}], "]"}], ",", "\<\"a\"\>"}], "]"}], 
+           ",", "\<\"+\"\>"}], "]"}], ",", "\<\"b\"\>"}], "]"}], 
+       ",", "\<\"0\"\>"}], "]"}], ",", "\<\"0\"\>"}], "]"}], 
+   ",", "\<\")\"\>"}], "]"}]], "Output",
+ CellChangeTimes->{3.841599633980279*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"deeb94d2-7e38-47df-8fd7-f7fac271960a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"acumulatorString", " ", "=", " ", "\"\<\>\""}]], "Input",
+ CellChangeTimes->{{3.8416001061594834`*^9, 3.84160012242871*^9}},
+ CellLabel->"In[9]:=",ExpressionUUID->"0132ff81-40c9-44cf-8559-627a29d98eb7"],
+
+Cell[BoxData["\<\"\"\>"], "Output",
+ CellChangeTimes->{3.8416001233248568`*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"38f50c87-7b18-4ca4-81fd-900ebed9abda"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Thread", "[", 
+  RowBox[{"validateString", "[", 
+   RowBox[{
+    RowBox[{"Characters", "[", "\"\<a*(a+b00)\>\"", "]"}], ",", 
+    "acumulatorString", ",", " ", "\"\<hola\>\""}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.8415997094480667`*^9, 3.841599730598962*^9}, {
+  3.8416001005746355`*^9, 3.8416001303040085`*^9}},
+ CellLabel->"In[10]:=",ExpressionUUID->"c9e228b9-1ba8-4878-938b-f2b798cc347c"],
+
+Cell[BoxData["\<\"a*(a+b00)\"\>"], "Output",
+ CellChangeTimes->{{3.8415997125440893`*^9, 3.8415997320110426`*^9}, 
+   3.8416001332651825`*^9},
+ CellLabel->"Out[10]=",ExpressionUUID->"93fe8726-364d-423d-9832-7dc8960a91f3"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"validateString", "[", 
+    RowBox[{
+    "currentCharacter_", ",", " ", "acumulator_", ",", " ", "randomString_"}],
+     "]"}], ":=", " ", 
+   RowBox[{"StringJoin", "[", 
+    RowBox[{"acumulator", ",", 
+     RowBox[{"StringJoin", "[", 
+      RowBox[{"acumulator", ",", "currentCharacter"}], "]"}]}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.841599776120552*^9, 3.8415997860639553`*^9}, {
+  3.8415998254767056`*^9, 3.8415999505905185`*^9}},
+ CellLabel->"In[8]:=",ExpressionUUID->"e3e6f175-e841-4109-ba5e-085af84fb110"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Select", "[", 
+  RowBox[{"rulesSetSimplified", ",", 
+   RowBox[{
+    RowBox[{"#", ">", "\"\<0\>\""}], "&"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.8416003663165407`*^9, 3.8416004027960377`*^9}},
+ CellLabel->"In[15]:=",ExpressionUUID->"6fcafdcb-fcd6-444e-8dfe-12bdda6d0e94"],
+
+Cell[BoxData[
+ RowBox[{"{", "}"}]], "Output",
+ CellChangeTimes->{{3.8416003961937895`*^9, 3.841600405894929*^9}},
+ CellLabel->"Out[15]=",ExpressionUUID->"ecd8c378-f6b5-4127-a55a-2314cf1e95e4"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TreeRules", "[", "rulesSetSimplified", "]"}]], "Input",
+ CellChangeTimes->{{3.84160088578992*^9, 3.841600902664584*^9}},
+ CellLabel->"In[16]:=",ExpressionUUID->"582e5975-1bc6-451a-8bc9-e1a981f7b8f4"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "TreeRules", "tree", 
+   "\"Tree expected at position \\!\\(\\*RowBox[{\\\"1\\\"}]\\) in \
+\\!\\(\\*RowBox[{\\\"TreeRules\\\", \\\"[\\\", RowBox[{\\\"{\\\", \
+RowBox[{RowBox[{\\\"\\\\\\\"E\\\\\\\"\\\", \\\"\[Rule]\\\", \\\"\\\\\\\"I\\\\\
+\\\"\\\"}], \\\",\\\", RowBox[{\\\"\\\\\\\"E\\\\\\\"\\\", \\\"\[Rule]\\\", \\\
+\"\\\\\\\"E+E\\\\\\\"\\\"}], \\\",\\\", RowBox[{\\\"\\\\\\\"E\\\\\\\"\\\", \\\
+\"\[Rule]\\\", \\\"\\\\\\\"E*E\\\\\\\"\\\"}], \\\",\\\", \
+RowBox[{\\\"\\\\\\\"E\\\\\\\"\\\", \\\"\[Rule]\\\", \\\"\\\\\\\"(E)\\\\\\\"\\\
+\"}], \\\",\\\", RowBox[{\\\"\\\\\\\"I\\\\\\\"\\\", \\\"\[Rule]\\\", \\\"\\\\\
+\\\"a\\\\\\\"\\\"}], \\\",\\\", RowBox[{\\\"\\\\\\\"I\\\\\\\"\\\", \
+\\\"\[Rule]\\\", \\\"\\\\\\\"b\\\\\\\"\\\"}], \\\",\\\", \
+RowBox[{\\\"\\\\\\\"I\\\\\\\"\\\", \\\"\[Rule]\\\", \
+\\\"\\\\\\\"0\\\\\\\"\\\"}], \\\",\\\", RowBox[{\\\"\\\\\\\"I\\\\\\\"\\\", \\\
+\"\[Rule]\\\", \\\"\\\\\\\"1\\\\\\\"\\\"}]}], \\\"}\\\"}], \\\"]\\\"}]\\).\"",
+    2, 16, 1, 33762155636283152282, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.8416009064026504`*^9},
+ CellLabel->
+  "Durante la evaluaci\[OAcute]n de \
+In[16]:=",ExpressionUUID->"85d98f97-0714-45af-87d8-93c50f1fc17e"],
+
+Cell[BoxData[
+ RowBox[{"TreeRules", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"\<\"E\"\>", "\[Rule]", "\<\"I\"\>"}], ",", 
+    RowBox[{"\<\"E\"\>", "\[Rule]", "\<\"E+E\"\>"}], ",", 
+    RowBox[{"\<\"E\"\>", "\[Rule]", "\<\"E*E\"\>"}], ",", 
+    RowBox[{"\<\"E\"\>", "\[Rule]", "\<\"(E)\"\>"}], ",", 
+    RowBox[{"\<\"I\"\>", "\[Rule]", "\<\"a\"\>"}], ",", 
+    RowBox[{"\<\"I\"\>", "\[Rule]", "\<\"b\"\>"}], ",", 
+    RowBox[{"\<\"I\"\>", "\[Rule]", "\<\"0\"\>"}], ",", 
+    RowBox[{"\<\"I\"\>", "\[Rule]", "\<\"1\"\>"}]}], "}"}], "]"}]], "Output",
+ CellChangeTimes->{3.84160090645545*^9},
+ CellLabel->"Out[16]=",ExpressionUUID->"310bb9e8-b0ed-4e2f-864a-a4ad6ea814f9"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"RulesTree", "[", "rulesSetSimplified", "]"}]], "Input",
+ CellChangeTimes->{{3.841600949583894*^9, 3.841600954078628*^9}},
+ CellLabel->"In[17]:=",ExpressionUUID->"58bf1a0b-da50-4b37-98bf-98982d3ee6a1"],
+
+Cell[BoxData[
+ RowBox[{"Clear", "[", "EmptyQ", "]"}]], "Input",
+ CellChangeTimes->{{3.8416009842680182`*^9, 3.841600984275999*^9}, {
+  3.8417849109604197`*^9, 3.8417849184793863`*^9}},
+ CellLabel->"In[46]:=",ExpressionUUID->"11a2bcba-29a3-4daa-b3e3-9db9df14e226"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Codigo", "Section",
+ CellChangeTimes->{{3.841784645421072*^9, 
+  3.84178464845994*^9}},ExpressionUUID->"bf97d048-d1c6-428b-9610-\
+0dde99efc865"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"experimentTree", " ", "=", " ", 
+  RowBox[{"RulesTree", "[", 
+   RowBox[{"\"\<E\>\"", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"\"\<E\>\"", " ", "->", " ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<I\>\"", "->", " ", 
+         RowBox[{"{", "\"\<a\>\"", "}"}]}], "}"}]}], ",", " ", "\"\<*\>\"", 
+      ",", " ", 
+      RowBox[{"\"\<E\>\"", " ", "->", 
+       RowBox[{"{", 
+        RowBox[{"\"\<(\>\"", ",", " ", 
+         RowBox[{"\"\<E\>\"", " ", "->", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"\"\<E\>\"", "->", " ", 
+             RowBox[{"{", 
+              RowBox[{"\"\<I\>\"", "->", " ", 
+               RowBox[{"{", "\"\<a\>\"", "}"}]}], "}"}]}], ",", " ", 
+            "\"\<+\>\"", ",", " ", 
+            RowBox[{"\"\<E\>\"", " ", "->", " ", 
+             RowBox[{"{", 
+              RowBox[{"\"\<I\>\"", " ", "->", " ", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"\"\<I\>\"", " ", "->", " ", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"\"\<I\>\"", " ", "->", " ", 
+                    RowBox[{"{", "\"\<b\>\"", "}"}]}], ",", " ", 
+                    "\"\<0\>\""}], "}"}]}], ",", " ", "\"\<0\>\""}], "}"}]}], 
+              "}"}]}]}], "}"}]}], ",", " ", "\"\<)\>\""}], "}"}]}]}], "}"}]}],
+    "]"}]}]], "Input",
+ CellChangeTimes->{{3.841784814200382*^9, 3.841784816928752*^9}, {
+  3.84178485507349*^9, 3.8417848870795407`*^9}, {3.841784930369364*^9, 
+  3.8417849521933527`*^9}, {3.8417849997014694`*^9, 3.8417850375765505`*^9}, {
+  3.8417851159656534`*^9, 3.841785119777589*^9}, {3.8417851721138506`*^9, 
+  3.8417851986176744`*^9}, {3.841785369975011*^9, 3.8417854746469383`*^9}, {
+  3.841786992614727*^9, 3.8417869977325287`*^9}, {3.841787329253273*^9, 
+  3.841787473310171*^9}},
+ CellLabel->"In[61]:=",ExpressionUUID->"8156cd55-8574-44cc-8f32-9e136c2c08ff"],
+
+Cell[BoxData[
+ GraphicsBox[
+  NamespaceBox["Trees",
+   DynamicModuleBox[{Typeset`tree = HoldComplete[
+     Tree["E", {
+       Tree["E", {
+         Tree["I", {
+           Tree["a", None]}]}], 
+       Tree["*", None], 
+       Tree["E", {
+         Tree["(", None], 
+         Tree["E", {
+           Tree["E", {
+             Tree["I", {
+               Tree["a", None]}]}], 
+           Tree["+", None], 
+           Tree["E", {
+             Tree["I", {
+               Tree["I", {
+                 Tree["I", {
+                   Tree["b", None]}], 
+                 Tree["0", None]}], 
+               Tree["0", None]}]}]}], 
+         Tree[")", None]}]}]]}, {
+     {RGBColor[0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+      AbsoluteThickness[1], Opacity[0.7], 
+      StyleBox[{
+        LineBox[{{0.8548504142651103, 5.9839528998557725`}, {0., 
+         5.129102485590662}}], 
+        LineBox[{{0.8548504142651103, 5.9839528998557725`}, {
+         0.8548504142651103, 5.129102485590662}}], 
+        LineBox[{{0.8548504142651103, 5.9839528998557725`}, {
+         1.7097008285302207`, 5.129102485590662}}], 
+        LineBox[{{0., 5.129102485590662}, {0., 4.274252071325552}}], 
+        LineBox[{{0., 4.274252071325552}, {0., 3.4194016570604417`}}], 
+        LineBox[{{1.7097008285302207`, 5.129102485590662}, {
+         0.8548504142651103, 4.274252071325552}}], 
+        LineBox[{{1.7097008285302207`, 5.129102485590662}, {
+         1.7097008285302207`, 4.274252071325552}}], 
+        LineBox[{{1.7097008285302207`, 5.129102485590662}, {
+         2.5645512427953308`, 4.274252071325552}}], 
+        LineBox[{{1.7097008285302207`, 4.274252071325552}, {
+         0.8548504142651103, 3.4194016570604417`}}], 
+        LineBox[{{1.7097008285302207`, 4.274252071325552}, {
+         1.7097008285302207`, 3.4194016570604417`}}], 
+        LineBox[{{1.7097008285302207`, 4.274252071325552}, {
+         2.5645512427953308`, 3.4194016570604417`}}], 
+        LineBox[{{0.8548504142651103, 3.4194016570604417`}, {
+         0.8548504142651103, 2.564551242795331}}], 
+        LineBox[{{0.8548504142651103, 2.564551242795331}, {0.8548504142651103,
+          1.709700828530221}}], 
+        LineBox[{{2.5645512427953308`, 3.4194016570604417`}, {
+         2.5645512427953308`, 2.564551242795331}}], 
+        LineBox[{{2.5645512427953308`, 2.564551242795331}, {
+         2.1371260356627757`, 1.709700828530221}}], 
+        LineBox[{{2.5645512427953308`, 2.564551242795331}, {
+         2.9919764499278863`, 1.709700828530221}}], 
+        LineBox[{{2.1371260356627757`, 1.709700828530221}, {
+         1.7097008285302207`, 0.854850414265111}}], 
+        LineBox[{{2.1371260356627757`, 1.709700828530221}, {
+         2.5645512427953308`, 0.854850414265111}}], 
+        LineBox[{{1.7097008285302207`, 0.854850414265111}, {
+         1.7097008285302207`, 0.}}]},
+       GraphicsHighlightColor->RGBColor[
+        0.403921568627451, 0.8705882352941177, 0.7176470588235294]]}, 
+     {GrayLevel[0], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+      StyleBox[{InsetBox[
+         FrameBox["\<\"E\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->4,
+          StripOnInput->False], {0.8548504142651103, 5.9839528998557725}], 
+        InsetBox[
+         FrameBox["\<\"E\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->4,
+          StripOnInput->False], {0., 5.129102485590662}], InsetBox[
+         FrameBox["\<\"I\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->4,
+          StripOnInput->False], {0., 4.274252071325552}], InsetBox[
+         FrameBox["\<\"a\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {0., 3.4194016570604417}], InsetBox[
+         FrameBox["\<\"*\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {0.8548504142651103, 5.129102485590662}], 
+        InsetBox[
+         FrameBox["\<\"E\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->4,
+          StripOnInput->False], {1.7097008285302207, 5.129102485590662}], 
+        InsetBox[
+         FrameBox["\<\"(\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {0.8548504142651103, 4.274252071325552}], 
+        InsetBox[
+         FrameBox["\<\"E\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->4,
+          StripOnInput->False], {1.7097008285302207, 4.274252071325552}], 
+        InsetBox[
+         FrameBox["\<\"E\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->4,
+          StripOnInput->False], {0.8548504142651103, 3.4194016570604417}], 
+        InsetBox[
+         FrameBox["\<\"I\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->4,
+          StripOnInput->False], {0.8548504142651103, 2.564551242795331}], 
+        InsetBox[
+         FrameBox["\<\"a\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {0.8548504142651103, 1.709700828530221}], 
+        InsetBox[
+         FrameBox["\<\"+\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {1.7097008285302207, 3.4194016570604417}], 
+        InsetBox[
+         FrameBox["\<\"E\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->4,
+          StripOnInput->False], {2.5645512427953308, 3.4194016570604417}], 
+        InsetBox[
+         FrameBox["\<\"I\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->4,
+          StripOnInput->False], {2.5645512427953308, 2.564551242795331}], 
+        InsetBox[
+         FrameBox["\<\"I\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->4,
+          StripOnInput->False], {2.1371260356627757, 1.709700828530221}], 
+        InsetBox[
+         FrameBox["\<\"I\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->4,
+          StripOnInput->False], {1.7097008285302207, 0.854850414265111}], 
+        InsetBox[
+         FrameBox["\<\"b\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {1.7097008285302207, 0.}], InsetBox[
+         FrameBox["\<\"0\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {2.5645512427953308, 0.854850414265111}], 
+        InsetBox[
+         FrameBox["\<\"0\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {2.9919764499278863, 1.709700828530221}], 
+        InsetBox[
+         FrameBox["\<\")\"\>",
+          
+          Background->RGBColor[
+           0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+          FrameStyle->Directive[
+            RGBColor[
+            0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+            AbsoluteThickness[1]],
+          ImageSize->Automatic,
+          RoundingRadius->0,
+          StripOnInput->False], {2.5645512427953308, 4.274252071325552}]},
+       GraphicsHighlightColor->RGBColor[
+        0.403921568627451, 0.8705882352941177, 0.7176470588235294]]}}]],
+  BaseStyle->{
+   FrontEnd`GraphicsHighlightColor -> 
+    RGBColor[0.403921568627451, 0.8705882352941177, 0.7176470588235294]},
+  FormatType->StandardForm,
+  FrameTicks->None]], "Output",
+ CellChangeTimes->{
+  3.8417848916368623`*^9, 3.8417849246493053`*^9, 3.8417849558497286`*^9, {
+   3.84178501292375*^9, 3.8417850415704007`*^9}, 3.841785122856715*^9, 
+   3.84178520106975*^9, 3.8417854250988293`*^9, 3.8417854817589593`*^9, 
+   3.84178700222034*^9, 3.8417873538341985`*^9, 3.8417873972817974`*^9, {
+   3.8417874453747687`*^9, 3.841787481680646*^9}},
+ CellLabel->"Out[61]=",ExpressionUUID->"0b2d81a7-2224-4b6e-9db0-af98e0bac15b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TreeLeaves", "[", "experimentTree", "]"}]], "Input",
+ CellChangeTimes->{{3.8417870056957026`*^9, 3.8417870101333513`*^9}},
+ CellLabel->"In[62]:=",ExpressionUUID->"0872bc50-c3ac-4f82-9eb0-5e36fda9bffe"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   GraphicsBox[
+    NamespaceBox["Trees",
+     DynamicModuleBox[{Typeset`tree = HoldComplete[
+       Tree["a", None]]}, {{}, 
+       {GrayLevel[0], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+        StyleBox[InsetBox[
+          FrameBox["\<\"a\"\>",
+           
+           Background->RGBColor[
+            0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+           FrameStyle->Directive[
+             RGBColor[
+             0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+             AbsoluteThickness[1]],
+           ImageSize->Automatic,
+           RoundingRadius->0,
+           StripOnInput->False], {1., 1.}],
+         GraphicsHighlightColor->RGBColor[
+          0.403921568627451, 0.8705882352941177, 0.7176470588235294]]}}]],
+    BaseStyle->{
+     FrontEnd`GraphicsHighlightColor -> 
+      RGBColor[0.403921568627451, 0.8705882352941177, 0.7176470588235294]},
+    FormatType->StandardForm,
+    FrameTicks->None,
+    PlotRangePadding->0.1], ",", 
+   GraphicsBox[
+    NamespaceBox["Trees",
+     DynamicModuleBox[{Typeset`tree = HoldComplete[
+       Tree["*", None]]}, {{}, 
+       {GrayLevel[0], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+        StyleBox[InsetBox[
+          FrameBox["\<\"*\"\>",
+           
+           Background->RGBColor[
+            0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+           FrameStyle->Directive[
+             RGBColor[
+             0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+             AbsoluteThickness[1]],
+           ImageSize->Automatic,
+           RoundingRadius->0,
+           StripOnInput->False], {1., 1.}],
+         GraphicsHighlightColor->RGBColor[
+          0.403921568627451, 0.8705882352941177, 0.7176470588235294]]}}]],
+    BaseStyle->{
+     FrontEnd`GraphicsHighlightColor -> 
+      RGBColor[0.403921568627451, 0.8705882352941177, 0.7176470588235294]},
+    FormatType->StandardForm,
+    FrameTicks->None,
+    PlotRangePadding->0.1], ",", 
+   GraphicsBox[
+    NamespaceBox["Trees",
+     DynamicModuleBox[{Typeset`tree = HoldComplete[
+       Tree["(", None]]}, {{}, 
+       {GrayLevel[0], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+        StyleBox[InsetBox[
+          FrameBox["\<\"(\"\>",
+           
+           Background->RGBColor[
+            0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+           FrameStyle->Directive[
+             RGBColor[
+             0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+             AbsoluteThickness[1]],
+           ImageSize->Automatic,
+           RoundingRadius->0,
+           StripOnInput->False], {1., 1.}],
+         GraphicsHighlightColor->RGBColor[
+          0.403921568627451, 0.8705882352941177, 0.7176470588235294]]}}]],
+    BaseStyle->{
+     FrontEnd`GraphicsHighlightColor -> 
+      RGBColor[0.403921568627451, 0.8705882352941177, 0.7176470588235294]},
+    FormatType->StandardForm,
+    FrameTicks->None,
+    PlotRangePadding->0.1], ",", 
+   GraphicsBox[
+    NamespaceBox["Trees",
+     DynamicModuleBox[{Typeset`tree = HoldComplete[
+       Tree["a", None]]}, {{}, 
+       {GrayLevel[0], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+        StyleBox[InsetBox[
+          FrameBox["\<\"a\"\>",
+           
+           Background->RGBColor[
+            0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+           FrameStyle->Directive[
+             RGBColor[
+             0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+             AbsoluteThickness[1]],
+           ImageSize->Automatic,
+           RoundingRadius->0,
+           StripOnInput->False], {1., 1.}],
+         GraphicsHighlightColor->RGBColor[
+          0.403921568627451, 0.8705882352941177, 0.7176470588235294]]}}]],
+    BaseStyle->{
+     FrontEnd`GraphicsHighlightColor -> 
+      RGBColor[0.403921568627451, 0.8705882352941177, 0.7176470588235294]},
+    FormatType->StandardForm,
+    FrameTicks->None,
+    PlotRangePadding->0.1], ",", 
+   GraphicsBox[
+    NamespaceBox["Trees",
+     DynamicModuleBox[{Typeset`tree = HoldComplete[
+       Tree["+", None]]}, {{}, 
+       {GrayLevel[0], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+        StyleBox[InsetBox[
+          FrameBox["\<\"+\"\>",
+           
+           Background->RGBColor[
+            0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+           FrameStyle->Directive[
+             RGBColor[
+             0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+             AbsoluteThickness[1]],
+           ImageSize->Automatic,
+           RoundingRadius->0,
+           StripOnInput->False], {1., 1.}],
+         GraphicsHighlightColor->RGBColor[
+          0.403921568627451, 0.8705882352941177, 0.7176470588235294]]}}]],
+    BaseStyle->{
+     FrontEnd`GraphicsHighlightColor -> 
+      RGBColor[0.403921568627451, 0.8705882352941177, 0.7176470588235294]},
+    FormatType->StandardForm,
+    FrameTicks->None,
+    PlotRangePadding->0.1], ",", 
+   GraphicsBox[
+    NamespaceBox["Trees",
+     DynamicModuleBox[{Typeset`tree = HoldComplete[
+       Tree["b", None]]}, {{}, 
+       {GrayLevel[0], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+        StyleBox[InsetBox[
+          FrameBox["\<\"b\"\>",
+           
+           Background->RGBColor[
+            0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+           FrameStyle->Directive[
+             RGBColor[
+             0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+             AbsoluteThickness[1]],
+           ImageSize->Automatic,
+           RoundingRadius->0,
+           StripOnInput->False], {1., 1.}],
+         GraphicsHighlightColor->RGBColor[
+          0.403921568627451, 0.8705882352941177, 0.7176470588235294]]}}]],
+    BaseStyle->{
+     FrontEnd`GraphicsHighlightColor -> 
+      RGBColor[0.403921568627451, 0.8705882352941177, 0.7176470588235294]},
+    FormatType->StandardForm,
+    FrameTicks->None,
+    PlotRangePadding->0.1], ",", 
+   GraphicsBox[
+    NamespaceBox["Trees",
+     DynamicModuleBox[{Typeset`tree = HoldComplete[
+       Tree["0", None]]}, {{}, 
+       {GrayLevel[0], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+        StyleBox[InsetBox[
+          FrameBox["\<\"0\"\>",
+           
+           Background->RGBColor[
+            0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+           FrameStyle->Directive[
+             RGBColor[
+             0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+             AbsoluteThickness[1]],
+           ImageSize->Automatic,
+           RoundingRadius->0,
+           StripOnInput->False], {1., 1.}],
+         GraphicsHighlightColor->RGBColor[
+          0.403921568627451, 0.8705882352941177, 0.7176470588235294]]}}]],
+    BaseStyle->{
+     FrontEnd`GraphicsHighlightColor -> 
+      RGBColor[0.403921568627451, 0.8705882352941177, 0.7176470588235294]},
+    FormatType->StandardForm,
+    FrameTicks->None,
+    PlotRangePadding->0.1], ",", 
+   GraphicsBox[
+    NamespaceBox["Trees",
+     DynamicModuleBox[{Typeset`tree = HoldComplete[
+       Tree["0", None]]}, {{}, 
+       {GrayLevel[0], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+        StyleBox[InsetBox[
+          FrameBox["\<\"0\"\>",
+           
+           Background->RGBColor[
+            0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+           FrameStyle->Directive[
+             RGBColor[
+             0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+             AbsoluteThickness[1]],
+           ImageSize->Automatic,
+           RoundingRadius->0,
+           StripOnInput->False], {1., 1.}],
+         GraphicsHighlightColor->RGBColor[
+          0.403921568627451, 0.8705882352941177, 0.7176470588235294]]}}]],
+    BaseStyle->{
+     FrontEnd`GraphicsHighlightColor -> 
+      RGBColor[0.403921568627451, 0.8705882352941177, 0.7176470588235294]},
+    FormatType->StandardForm,
+    FrameTicks->None,
+    PlotRangePadding->0.1], ",", 
+   GraphicsBox[
+    NamespaceBox["Trees",
+     DynamicModuleBox[{Typeset`tree = HoldComplete[
+       Tree[")", None]]}, {{}, 
+       {GrayLevel[0], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+        StyleBox[InsetBox[
+          FrameBox["\<\")\"\>",
+           
+           Background->RGBColor[
+            0.9607843137254902, 0.9882352941176471, 0.9764705882352941],
+           FrameStyle->Directive[
+             RGBColor[
+             0.6588235294117647, 0.7294117647058823, 0.7058823529411765], 
+             AbsoluteThickness[1]],
+           ImageSize->Automatic,
+           RoundingRadius->0,
+           StripOnInput->False], {1., 1.}],
+         GraphicsHighlightColor->RGBColor[
+          0.403921568627451, 0.8705882352941177, 0.7176470588235294]]}}]],
+    BaseStyle->{
+     FrontEnd`GraphicsHighlightColor -> 
+      RGBColor[0.403921568627451, 0.8705882352941177, 0.7176470588235294]},
+    FormatType->StandardForm,
+    FrameTicks->None,
+    PlotRangePadding->0.1]}], "}"}]], "Output",
+ CellChangeTimes->{3.841787012210436*^9, 3.8417874853152437`*^9},
+ CellLabel->"Out[62]=",ExpressionUUID->"9139bbab-44f3-449c-a46c-a1e9a99c5017"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{886, 988},
+WindowMargins->{{Automatic, -7}, {Automatic, 0}},
+FrontEndVersion->"12.3 para Microsoft Windows (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"cfd36203-56eb-4aa8-a5ed-08c3b976517a"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 287, 4, 160, "Title",ExpressionUUID->"b21543ac-161e-44ac-b2ac-97b92f8a0374"],
+Cell[870, 28, 327, 9, 31, "Author",ExpressionUUID->"8bf56136-4e2c-4502-842c-1958f74b340d"],
+Cell[CellGroupData[{
+Cell[1222, 41, 181, 2, 67, "Section",ExpressionUUID->"31c0f48a-e5b3-4b59-a5f5-2a92e73046db"],
+Cell[1406, 45, 2077, 44, 288, "Text",ExpressionUUID->"16a95486-e2bb-4b75-9a1a-b691ce058fa9"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3520, 94, 158, 3, 67, "Section",ExpressionUUID->"d4de8f60-4f10-4017-b338-33a41e67c2fd"],
+Cell[CellGroupData[{
+Cell[3703, 101, 1121, 23, 250, "Input",ExpressionUUID->"92095d78-88a1-49db-b613-c9064ff24218"],
+Cell[4827, 126, 794, 15, 33, "Output",ExpressionUUID->"061f6313-69a2-4f87-942a-25e3d1f1533d"]
+}, Open  ]],
+Cell[5636, 144, 702, 17, 64, "Input",ExpressionUUID->"699470da-aca1-40d7-9946-de31f499d8c4"],
+Cell[6341, 163, 604, 14, 64, "Input",ExpressionUUID->"0ef05ae1-4be9-47c5-8df1-777af92f0e13"],
+Cell[CellGroupData[{
+Cell[6970, 181, 723, 16, 44, "Input",ExpressionUUID->"c188966d-bce9-4b1e-8dab-a46babc16566"],
+Cell[7696, 199, 7199, 175, 166, "Output",ExpressionUUID->"95b3b77b-da67-4e68-9e81-2fe6d9c39557"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14932, 379, 255, 4, 44, "Input",ExpressionUUID->"f76440f7-7a94-4035-ad20-fd35aa845731"],
+Cell[15190, 385, 244, 5, 33, "Output",ExpressionUUID->"4828eeed-859b-41d9-b708-d2b9da975ce7"]
+}, Open  ]],
+Cell[15449, 393, 154, 3, 29, "Input",ExpressionUUID->"7cfe5a4a-687f-4a78-95af-9ced0317379f"],
+Cell[CellGroupData[{
+Cell[15628, 400, 221, 3, 44, "Input",ExpressionUUID->"5b91b61f-3141-4455-8c04-c4e853e577d6"],
+Cell[15852, 405, 424, 9, 33, "Output",ExpressionUUID->"a20e9c36-381f-4ff3-9920-83dde894699d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16313, 419, 953, 18, 210, "Input",ExpressionUUID->"358e2502-7ede-4fc3-9595-ee1599769014"],
+Cell[17269, 439, 677, 13, 33, "Output",ExpressionUUID->"1378b27b-7354-4478-8ff6-4de4db854320"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17983, 457, 225, 3, 44, "Input",ExpressionUUID->"c4fcd87d-52a6-4723-b53e-fb776510718d"],
+Cell[18211, 462, 345, 6, 33, "Output",ExpressionUUID->"f8e03e2a-65ec-4d82-bd2e-703d5104b01b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18593, 473, 297, 5, 44, "Input",ExpressionUUID->"f4a6c2fa-30a6-41c8-8ba9-827c523f6c2e"],
+Cell[18893, 480, 855, 24, 33, "Output",ExpressionUUID->"deeb94d2-7e38-47df-8fd7-f7fac271960a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19785, 509, 226, 3, 29, "Input",ExpressionUUID->"0132ff81-40c9-44cf-8559-627a29d98eb7"],
+Cell[20014, 514, 157, 2, 33, "Output",ExpressionUUID->"38f50c87-7b18-4ca4-81fd-900ebed9abda"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20208, 521, 425, 8, 44, "Input",ExpressionUUID->"c9e228b9-1ba8-4878-938b-f2b798cc347c"],
+Cell[20636, 531, 221, 3, 33, "Output",ExpressionUUID->"93fe8726-364d-423d-9832-7dc8960a91f3"]
+}, Open  ]],
+Cell[20872, 537, 573, 14, 64, "Input",ExpressionUUID->"e3e6f175-e841-4109-ba5e-085af84fb110"],
+Cell[CellGroupData[{
+Cell[21470, 555, 300, 6, 44, "Input",ExpressionUUID->"6fcafdcb-fcd6-444e-8dfe-12bdda6d0e94"],
+Cell[21773, 563, 192, 3, 33, "Output",ExpressionUUID->"ecd8c378-f6b5-4127-a55a-2314cf1e95e4"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22002, 571, 223, 3, 44, "Input",ExpressionUUID->"582e5975-1bc6-451a-8bc9-e1a981f7b8f4"],
+Cell[22228, 576, 1231, 21, 28, "Message",ExpressionUUID->"85d98f97-0714-45af-87d8-93c50f1fc17e"],
+Cell[23462, 599, 672, 13, 33, "Output",ExpressionUUID->"310bb9e8-b0ed-4e2f-864a-a4ad6ea814f9"]
+}, Open  ]],
+Cell[24149, 615, 224, 3, 44, "Input",ExpressionUUID->"58bf1a0b-da50-4b37-98bf-98982d3ee6a1"],
+Cell[24376, 620, 263, 4, 44, "Input",ExpressionUUID->"11a2bcba-29a3-4daa-b3e3-9db9df14e226"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[24676, 629, 150, 3, 67, "Section",ExpressionUUID->"bf97d048-d1c6-428b-9610-0dde99efc865"],
+Cell[CellGroupData[{
+Cell[24851, 636, 1915, 42, 106, "Input",ExpressionUUID->"8156cd55-8574-44cc-8f32-9e136c2c08ff"],
+Cell[26769, 680, 12955, 315, 472, "Output",ExpressionUUID->"0b2d81a7-2224-4b6e-9db0-af98e0bac15b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[39761, 1000, 225, 3, 44, "Input",ExpressionUUID->"0872bc50-c3ac-4f82-9eb0-5e36fda9bffe"],
+Cell[39989, 1005, 9009, 229, 621, "Output",ExpressionUUID->"9139bbab-44f3-449c-a46c-a1e9a99c5017"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
