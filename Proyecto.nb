@@ -1,0 +1,318 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     11492,        310]
+NotebookOptionsPosition[      8140,        242]
+NotebookOutlinePosition[      8628,        260]
+CellTagsIndexPosition[      8585,        257]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Teor\[IAcute]a de Aut\[OAcute]matas y Lenguajes Formales", "Title",
+ CellChangeTimes->{{3.8363277889517117`*^9, 
+  3.836327827787232*^9}},ExpressionUUID->"634bddfd-f953-4491-a04c-\
+e11752348dfd"],
+
+Cell["\<\
+MC-6003 II-2021 (Maestr\[IAcute]a en Ciencias de la Computaci\[OAcute]n ITCR)\
+\
+\>", "Subtitle",
+ CellChangeTimes->{{3.8363278344241753`*^9, 3.836327842083921*^9}, {
+  3.836329238448472*^9, 3.8363292710826263`*^9}},
+ FontSize->18,ExpressionUUID->"bfd95c9a-6445-491a-9fb6-bfc02248f3aa"],
+
+Cell[CellGroupData[{
+
+Cell["Profesor: Tom\[AAcute]s de Camino Beck, Ph.D.", "Author",
+ CellChangeTimes->{{3.8363278647710037`*^9, 3.836327892777102*^9}, {
+  3.8369087508554773`*^9, 
+  3.8369087520220337`*^9}},ExpressionUUID->"f32add94-1481-4ad9-baf5-\
+210aa848f39a"],
+
+Cell["tomas.decamino@gmail.com", "EpigraphAuthor",
+ CellChangeTimes->{{3.8363293018610497`*^9, 3.836329321311796*^9}, 
+   3.836411883621863*^9},ExpressionUUID->"a2e909f7-e4e7-4e4f-814f-\
+d35e66cf5c15"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Proyecto Final", "Section",
+ CellChangeTimes->{{3.8436639978195066`*^9, 
+  3.843664000531312*^9}},ExpressionUUID->"bdac524a-e27c-401c-9790-\
+6675beb8263b"],
+
+Cell["\<\
+El proyecto final, que tiene un valor de 200 puntos, consiste en el \
+desarrollo de un proyecto libre, que incluya alguno de los temas visto en \
+clase, o temas adicionales no cubiertos o relacionados a teor\[IAcute]a de \
+aut\[OAcute]matas (o con teor\[IAcute]a de computaci\[OAcute]n).  El proyecto \
+debe contener:\
+\>", "Text",
+ CellChangeTimes->{{3.843664004656419*^9, 3.843664085757571*^9}, {
+  3.843664359122095*^9, 
+  3.843664366075634*^9}},ExpressionUUID->"00ab6fe6-2663-45b7-b10a-\
+0782f895da14"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Debe ser desarrollando los puntos incluidos en este Notebook.\
+\>", "Item1Numbered",
+ CellChangeTimes->{{3.843664004656419*^9, 3.8436641264732447`*^9}, {
+   3.843664242471624*^9, 3.843664242799667*^9}, 
+   3.843664778544894*^9},ExpressionUUID->"3762aa0c-7ef2-4249-b125-\
+03e47da3b7eb"],
+
+Cell["\<\
+Debe contener la implementaci\[OAcute]n en Mathematica de alg\[UAcute]n c\
+\[OAcute]digo, con detalles explicando su desarrollo y con al menos dos \
+ejemplos.\
+\>", "Item1Numbered",
+ CellChangeTimes->{{3.843664004656419*^9, 3.843664210705624*^9}, {
+   3.843664283354727*^9, 3.8436642833552322`*^9}, 
+   3.843664785268832*^9},ExpressionUUID->"c1cc648f-699c-4674-9462-\
+ad32da54870b"],
+
+Cell["\<\
+Una vez encontrado un tema y desarrollado un c\[OAcute]digo, hacer alg\
+\[UAcute]n tipo de experimentaci\[OAcute]n con el c\[OAcute]digo, tal vez \
+buscando alguna aplicaci\[OAcute]n que pueda ser de inter\[EAcute]s.\
+\>", "Item1Numbered",
+ CellChangeTimes->{{3.843664004656419*^9, 3.843664210705624*^9}, {
+  3.843664284117214*^9, 
+  3.843664373702286*^9}},ExpressionUUID->"59881756-4b68-4ecf-a08e-\
+8c1f2e6ee6a9"],
+
+Cell["Incluir al menos 5 referencias (indexadas)", "Item1Numbered",
+ CellChangeTimes->{{3.843664004656419*^9, 3.84366416939565*^9}, {
+  3.843664213396515*^9, 
+  3.843664224344598*^9}},ExpressionUUID->"994b93c2-fce3-449f-9c3f-\
+32c0f3b596f0"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Introducci\[OAcute]n", "Section",
+ CellChangeTimes->{{3.843664248103147*^9, 
+  3.8436642638737373`*^9}},ExpressionUUID->"61964645-f86b-466b-aa49-\
+3de77935e2d4"],
+
+Cell["\<\
+Incluir una introducci\[OAcute]n tipo art\[IAcute]culo cient\[IAcute]fico del \
+tema...\
+\>", "Item1",
+ CellChangeTimes->{{3.8436642659359903`*^9, 3.8436642761488523`*^9}, {
+   3.843664377336241*^9, 3.843664378080413*^9}, 
+   3.843664788118433*^9},ExpressionUUID->"319645c7-d9ab-4113-9084-\
+bc93b38e8262"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Teor\[IAcute]a", "Section",
+ CellChangeTimes->{{3.8436642659359903`*^9, 3.8436642761488523`*^9}, {
+  3.843664377336241*^9, 
+  3.843664393593107*^9}},ExpressionUUID->"e134310a-8bd6-4b46-bb05-\
+bacfe863ad1d"],
+
+Cell["Descripci\[OAcute]n te\[OAcute]rica del sistema a desarrollar...", \
+"Item1",
+ CellChangeTimes->{{3.8436643955134373`*^9, 3.843664408962606*^9}, {
+   3.8436644472919273`*^9, 3.8436644482997723`*^9}, 
+   3.843664790000169*^9},ExpressionUUID->"895d9732-fb86-4e19-886f-\
+1b05cea833da"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Desarrollo de c\[OAcute]digo En Mathematica", "Section",
+ CellChangeTimes->{{3.843664413259706*^9, 
+  3.843664423097035*^9}},ExpressionUUID->"9251d7ae-05ea-42d4-85f4-\
+ea5c33c8bc77"],
+
+Cell["\<\
+En esta secci\[OAcute]n incluya el c\[OAcute]digo desarrollado, con las \
+explicaciones pertinentes...\
+\>", "Item1",
+ CellChangeTimes->{{3.843664429408499*^9, 
+  3.8436644453160143`*^9}},ExpressionUUID->"74da01d6-f5ca-4e82-b762-\
+191eb1236a97"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Ejemplos", "Section",
+ CellChangeTimes->{{3.843664426573675*^9, 
+  3.8436644518148823`*^9}},ExpressionUUID->"cfe20169-99be-458b-8e28-\
+38f011a07011"],
+
+Cell["Dos ejemplos de uso del c\[OAcute]digo con explicaci\[OAcute]n", "Item1",
+ CellChangeTimes->{{3.843664460730027*^9, 
+  3.8436644691711397`*^9}},ExpressionUUID->"bc5bf643-51f6-4781-816c-\
+622853400cfb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Experimentaci\[OAcute]n", "Section",
+ CellChangeTimes->{{3.8436644733768883`*^9, 
+  3.843664475524988*^9}},ExpressionUUID->"78457b40-4020-40d6-9f52-\
+fe72a6e34023"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Con el c\[OAcute]digo desarrollado aplique a alg\[UAcute]n ejemplo que puede \
+ser de inter\[EAcute]s, o realice alg\[UAcute]n tipo de \
+experimentaci\[OAcute]n. C\[OAcute]mo ejemplo pueden pensar en explorar todas \
+las m\[AAcute]quinas de Turing con ciertas caracter\[IAcute]sticas, y \
+determinar cuantas se detienen en un tiempo determinado....  O utilizar un \
+algoritmo gen\[EAcute]tico para evolucionar una MT o aut\[OAcute]mata... (el \
+cielo es el l\[IAcute]mite)\
+\>", "Item1",
+ CellChangeTimes->{{3.8436645109839573`*^9, 3.8436646027392683`*^9}, {
+   3.8436646679799557`*^9, 3.8436646927019777`*^9}, {3.843664794956732*^9, 
+   3.843664809790904*^9}, 
+   3.843688396755513*^9},ExpressionUUID->"bd910780-14b9-407d-9133-\
+7338ba7c2ad2"],
+
+Cell["\<\
+Tome toda la libertad de consultar al profesor si quiere ver algunas ideas de \
+que puede hacer\
+\>", "Item1",
+ CellChangeTimes->{{3.8436645109839573`*^9, 
+  3.843664626216547*^9}},ExpressionUUID->"ddc42479-4ff1-4c3a-a24c-\
+8585a8f05eaa"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Resultados", "Section",
+ CellChangeTimes->{{3.843664488292221*^9, 
+  3.8436644895781727`*^9}},ExpressionUUID->"87353ee7-3c66-49bc-bc57-\
+3674098db62b"],
+
+Cell["Muestre resultado de experimentaci\[OAcute]n...", "Item1",
+ CellChangeTimes->{{3.843664594178393*^9, 3.8436646010652103`*^9}, 
+   3.843664811849687*^9},ExpressionUUID->"6a3caae4-2e7d-431c-a3dc-\
+d87dd79f3b4b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Comentario Final y Trabajo Futuro", "Section",
+ CellChangeTimes->{{3.843664494753695*^9, 
+  3.843664507449121*^9}},ExpressionUUID->"f8e505be-ea19-489b-85e3-\
+ce7d357b0733"],
+
+Cell["Comentarios finales y que se podr\[IAcute]a desarrollar", "Item1",
+ CellChangeTimes->{{3.8436646303004208`*^9, 
+  3.843664639066388*^9}},ExpressionUUID->"389a84a9-a43c-40ff-8fb2-\
+68c9b9631280"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Referencias", "Section",
+ CellChangeTimes->{{3.84366464425928*^9, 
+  3.8436646485936527`*^9}},ExpressionUUID->"5cae1b21-3c84-4f8a-a75c-\
+fbc027b3c7b3"],
+
+Cell["Al menos 5 referencias de revistas indexadas o libros", "Item1",
+ CellChangeTimes->{{3.8436646501266193`*^9, 3.843664659557542*^9}, 
+   3.843664815578166*^9},ExpressionUUID->"7d567e7d-f27c-4d7f-b444-\
+090cd5f002dc"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1276, 696},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+Magnification:>2. Inherited,
+FrontEndVersion->"12.2 for Mac OS X x86 (64-bit) (December 12, 2020)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"6bd200fa-8370-4a83-8613-598c4981e652"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 201, 3, 248, "Title",ExpressionUUID->"634bddfd-f953-4491-a04c-e11752348dfd"],
+Cell[784, 27, 296, 6, 117, "Subtitle",ExpressionUUID->"bfd95c9a-6445-491a-9fb6-bfc02248f3aa"],
+Cell[CellGroupData[{
+Cell[1105, 37, 244, 4, 85, "Author",ExpressionUUID->"f32add94-1481-4ad9-baf5-210aa848f39a"],
+Cell[1352, 43, 201, 3, 96, "EpigraphAuthor",ExpressionUUID->"a2e909f7-e4e7-4e4f-814f-d35e66cf5c15"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1590, 51, 161, 3, 109, "Section",ExpressionUUID->"bdac524a-e27c-401c-9790-6675beb8263b"],
+Cell[1754, 56, 516, 10, 100, "Text",ExpressionUUID->"00ab6fe6-2663-45b7-b10a-0782f895da14"],
+Cell[CellGroupData[{
+Cell[2295, 70, 295, 6, 32, "Item1Numbered",ExpressionUUID->"3762aa0c-7ef2-4249-b125-03e47da3b7eb"],
+Cell[2593, 78, 392, 8, 58, "Item1Numbered",ExpressionUUID->"c1cc648f-699c-4674-9462-ad32da54870b"],
+Cell[2988, 88, 424, 8, 58, "Item1Numbered",ExpressionUUID->"59881756-4b68-4ecf-a08e-8c1f2e6ee6a9"],
+Cell[3415, 98, 241, 4, 32, "Item1Numbered",ExpressionUUID->"994b93c2-fce3-449f-9c3f-32c0f3b596f0"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3705, 108, 167, 3, 109, "Section",ExpressionUUID->"61964645-f86b-466b-aa49-3de77935e2d4"],
+Cell[3875, 113, 315, 7, 32, "Item1",ExpressionUUID->"319645c7-d9ab-4113-9084-bc93b38e8262"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4227, 125, 212, 4, 109, "Section",ExpressionUUID->"e134310a-8bd6-4b46-bb05-bacfe863ad1d"],
+Cell[4442, 131, 288, 5, 32, "Item1",ExpressionUUID->"895d9732-fb86-4e19-886f-1b05cea833da"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4767, 141, 188, 3, 109, "Section",ExpressionUUID->"9251d7ae-05ea-42d4-85f4-ea5c33c8bc77"],
+Cell[4958, 146, 255, 6, 32, "Item1",ExpressionUUID->"74da01d6-f5ca-4e82-b762-191eb1236a97"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5250, 157, 155, 3, 109, "Section",ExpressionUUID->"cfe20169-99be-458b-8e28-38f011a07011"],
+Cell[5408, 162, 207, 3, 32, "Item1",ExpressionUUID->"bc5bf643-51f6-4781-816c-622853400cfb"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5652, 170, 170, 3, 109, "Section",ExpressionUUID->"78457b40-4020-40d6-9f52-fe72a6e34023"],
+Cell[CellGroupData[{
+Cell[5847, 177, 754, 13, 110, "Item1",ExpressionUUID->"bd910780-14b9-407d-9133-7338ba7c2ad2"],
+Cell[6604, 192, 248, 6, 32, "Item1",ExpressionUUID->"ddc42479-4ff1-4c3a-a24c-8585a8f05eaa"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6901, 204, 157, 3, 109, "Section",ExpressionUUID->"87353ee7-3c66-49bc-bc57-3674098db62b"],
+Cell[7061, 209, 215, 3, 32, "Item1",ExpressionUUID->"6a3caae4-2e7d-431c-a3dc-d87dd79f3b4b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7313, 217, 178, 3, 109, "Section",ExpressionUUID->"f8e505be-ea19-489b-85e3-ce7d357b0733"],
+Cell[7494, 222, 200, 3, 32, "Item1",ExpressionUUID->"389a84a9-a43c-40ff-8fb2-68c9b9631280"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7731, 230, 157, 3, 109, "Section",ExpressionUUID->"5cae1b21-3c84-4f8a-a75c-fbc027b3c7b3"],
+Cell[7891, 235, 221, 3, 32, "Item1",ExpressionUUID->"7d567e7d-f27c-4d7f-b444-090cd5f002dc"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
