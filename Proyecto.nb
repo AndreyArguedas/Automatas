@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     21075,        521]
-NotebookOptionsPosition[     16198,        429]
-NotebookOutlinePosition[     16689,        447]
-CellTagsIndexPosition[     16646,        444]
+NotebookDataLength[     24436,        587]
+NotebookOptionsPosition[     19462,        494]
+NotebookOutlinePosition[     19953,        512]
+CellTagsIndexPosition[     19910,        509]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -242,6 +242,22 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{
    RowBox[{
+    RowBox[{"validateKeyRange", "[", 
+     RowBox[{"alphabet_", ",", " ", "publicKey_"}], "]"}], " ", ":=", " ", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", "}"}], ",", "\n", "\t", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"publicKey", " ", ">", " ", 
+         RowBox[{"Length", "[", "alphabet", "]"}]}], ",", " ", 
+        RowBox[{"Mod", "[", 
+         RowBox[{"publicKey", ",", 
+          RowBox[{"Length", "[", "alphabet", "]"}]}], "]"}], ",", " ", 
+        "publicKey"}], "]"}]}], "\n", "]"}]}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
     RowBox[{"encryptorDecryptor", "[", 
      RowBox[{"alphabet_", ",", "message_", ",", "publicKey_"}], "]"}], ":=", 
     " ", 
@@ -250,10 +266,14 @@ Cell[BoxData[{
       RowBox[{"{", 
        RowBox[{
        "chars", ",", " ", "alphabetLength", ",", " ", "currentPositions", ",",
-         " ", "newPositions", ",", " ", "newMessage"}], "}"}], ",", "\n", 
+         " ", "newPositions", ",", " ", "newMessage", ",", "validatedKey"}], 
+       "}"}], ",", "\n", 
       RowBox[{
        RowBox[{"alphabetLength", " ", "=", " ", 
         RowBox[{"Length", "[", "alphabet", "]"}]}], ";", "\n", 
+       RowBox[{"validatedKey", " ", "=", " ", 
+        RowBox[{"validateKeyRange", "[", 
+         RowBox[{"alphabet", ",", " ", "publicKey"}], "]"}]}], ";", "\n", 
        RowBox[{"chars", " ", "=", " ", 
         RowBox[{"Characters", "[", "message", "]"}]}], ";", "\n", 
        RowBox[{"currentPositions", " ", "=", " ", 
@@ -272,13 +292,21 @@ Cell[BoxData[{
            RowBox[{"If", "[", 
             RowBox[{
              RowBox[{
-              RowBox[{"#", " ", "+", " ", "publicKey"}], " ", ">", " ", 
+              RowBox[{"#", " ", "+", " ", "validatedKey"}], " ", ">", " ", 
               "alphabetLength"}], ",", " ", 
              RowBox[{
-             "#", " ", "+", " ", "publicKey", " ", "-", " ", 
+             "#", " ", "+", " ", "validatedKey", " ", "-", " ", 
               "alphabetLength"}], ",", " ", 
-             RowBox[{"#", " ", "+", " ", "publicKey"}]}], "]"}], "&"}], ",", 
-          "currentPositions"}], "]"}]}], ";", "\n", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"#", " ", "+", " ", "validatedKey"}], " ", "<=", " ", 
+                "0"}], ",", " ", 
+               RowBox[{"alphabetLength", " ", "+", " ", 
+                RowBox[{"(", 
+                 RowBox[{"#", " ", "+", " ", "validatedKey"}], ")"}]}], ",", 
+               RowBox[{"#", " ", "+", " ", "validatedKey"}]}], "]"}]}], "]"}],
+            "&"}], ",", "currentPositions"}], "]"}]}], ";", "\n", 
        RowBox[{"newMessage", " ", "=", " ", 
         RowBox[{
          RowBox[{
@@ -302,16 +330,31 @@ Cell[BoxData[{
    3.844695685713765*^9, 3.8446957080717535`*^9}, {3.844695758159729*^9, 
    3.8446957654099216`*^9}, {3.8446958370275965`*^9, 3.84469584213862*^9}, {
    3.844695875648609*^9, 3.844695892415625*^9}, {3.8446959465107327`*^9, 
-   3.8446959531038494`*^9}},
- CellLabel->"In[55]:=",ExpressionUUID->"af641e49-3400-43d7-ba17-4e9374fb2262"],
+   3.8446959531038494`*^9}, {3.844696786769754*^9, 3.844696795671795*^9}, 
+   3.8446968512744203`*^9, {3.8446969225896807`*^9, 3.844696949524639*^9}, {
+   3.8446970984803877`*^9, 3.844697145565428*^9}, {3.8446971988942413`*^9, 
+   3.844697204033696*^9}, {3.8446972724195547`*^9, 3.8446972765539846`*^9}, {
+   3.8446980198557544`*^9, 3.8446980238355565`*^9}, {3.844698242096413*^9, 
+   3.8446982561664543`*^9}, {3.8446985790961657`*^9, 
+   3.8446987881930447`*^9}, {3.8446988380420313`*^9, 
+   3.8446988933622437`*^9}, {3.8446989333133116`*^9, 3.844699217492997*^9}, {
+   3.844699258168564*^9, 3.844699280486823*^9}, {3.844699399188881*^9, 
+   3.8446994246199656`*^9}, 3.8446994756374826`*^9, {3.8446995072735305`*^9, 
+   3.844699538611043*^9}, {3.844699860238534*^9, 3.8446999009464216`*^9}, {
+   3.8446999338595195`*^9, 3.844699963552909*^9}, {3.8447000136805077`*^9, 
+   3.84470004136275*^9}, {3.8447001177161827`*^9, 3.844700214286271*^9}},
+ CellLabel->
+  "In[180]:=",ExpressionUUID->"af641e49-3400-43d7-ba17-4e9374fb2262"],
 
 Cell[BoxData["\<\"wigvix\"\>"], "Output",
- CellChangeTimes->{
-  3.8446942140185165`*^9, 3.8446947225967197`*^9, 3.8446947698176703`*^9, 
-   3.844694814298707*^9, {3.8446949869422283`*^9, 3.844695010561311*^9}, {
-   3.844695219255028*^9, 3.844695231345928*^9}, 3.8446957699425373`*^9, 
-   3.844695844068466*^9, 3.844695894804518*^9, 3.844695955775076*^9},
- CellLabel->"Out[56]=",ExpressionUUID->"68678b76-9dd1-4e78-846a-9f2ed88630f5"]
+ CellChangeTimes->{{3.844698955900298*^9, 3.844698958863124*^9}, {
+   3.844698989229696*^9, 3.844699016537055*^9}, {3.844699127305822*^9, 
+   3.8446991297115326`*^9}, {3.8446991892776475`*^9, 
+   3.8446992182896433`*^9}, {3.8446995158922787`*^9, 3.8446995410948224`*^9}, 
+   3.844699969831724*^9, {3.844700154756742*^9, 3.844700167503742*^9}, 
+   3.844700199199001*^9, 3.8447002343516226`*^9},
+ CellLabel->
+  "Out[182]=",ExpressionUUID->"62131559-7a24-4870-abd8-02d50c7e8fba"]
 }, Open  ]],
 
 Cell["\<\
@@ -319,11 +362,12 @@ Como podemos observar el mensaje encriptado queda como \
 \[OpenCurlyDoubleQuote]wigvix\[CloseCurlyDoubleQuote], la persona B recibir\
 \[AAcute] este mensaje y si alguien lo intercepta en el camino no sabr\
 \[AAcute] que significa a simple vista. La persona B deber\[AAcute] correr el \
-algoritmo pero con el key en negativo para decifrar el mensaje\
+algoritmo pero con el key en negativo para decifrar el mensaje.\
 \>", "Item1",
  CellChangeTimes->{{3.844695978171117*^9, 3.844695982951337*^9}, {
-  3.8446963747163663`*^9, 3.844696436340328*^9}, {3.844696486081584*^9, 
-  3.844696505675269*^9}},ExpressionUUID->"516d75e4-a03d-4fdc-90eb-\
+   3.8446963747163663`*^9, 3.844696436340328*^9}, {3.844696486081584*^9, 
+   3.844696505675269*^9}, 
+   3.844697553650491*^9},ExpressionUUID->"516d75e4-a03d-4fdc-90eb-\
 3089d1bb878f"],
 
 Cell[CellGroupData[{
@@ -333,13 +377,34 @@ Cell[BoxData[
   RowBox[{
    RowBox[{"Alphabet", "[", "]"}], ",", "\"\<wigvix\>\"", ",", 
    RowBox[{"-", "4"}]}], "]"}]], "Code",
- CellChangeTimes->{{3.8446965193858333`*^9, 3.84469652803939*^9}},
- CellLabel->"In[57]:=",ExpressionUUID->"8ed5782b-10fc-4bd7-bfe0-6e23326cc396"],
+ CellChangeTimes->{{3.8446965193858333`*^9, 3.84469652803939*^9}, {
+   3.844696729497885*^9, 3.844696758204793*^9}, {3.844696806007744*^9, 
+   3.8446968063487477`*^9}, {3.8446972322939453`*^9, 3.8446972598336973`*^9}, 
+   3.844698040146306*^9, {3.8446994299779425`*^9, 3.844699457281821*^9}, 
+   3.8447001709882603`*^9, {3.8447002043003435`*^9, 3.8447002235497274`*^9}},
+ CellLabel->
+  "In[179]:=",ExpressionUUID->"8ed5782b-10fc-4bd7-bfe0-6e23326cc396"],
 
 Cell[BoxData["\<\"secret\"\>"], "Output",
- CellChangeTimes->{3.8446965293514338`*^9},
- CellLabel->"Out[57]=",ExpressionUUID->"0fdb19aa-b2f1-4a00-b4cf-e44c9f4a8645"]
-}, Open  ]]
+ CellChangeTimes->{
+  3.844698261820326*^9, 3.8446992348669586`*^9, 3.8446994381591964`*^9, 
+   3.8446999737839174`*^9, {3.844700157849799*^9, 3.8447001724099064`*^9}, {
+   3.8447002070651655`*^9, 3.844700225849822*^9}},
+ CellLabel->
+  "Out[179]=",ExpressionUUID->"06da3e52-3b3e-4db3-8c05-1a1ea2bb49e9"]
+}, Open  ]],
+
+Cell["\<\
+Sin embargo este m\[EAcute]todo es bastante f\[AAcute]cil de crackear, \
+incluso si el \[OpenCurlyDoubleQuote]public key\[CloseCurlyDoubleQuote] fuese \
+un numero muy grande, un programador nada mas mediante fuerza bruta podr\
+\[IAcute]a probar todos los k=1...1000.... y leer cuales producen un mensaje \
+entendible y en adelante leer todos los mensajes de estas personas.\
+\>", "Item1",
+ CellChangeTimes->{{3.8446975632336845`*^9, 3.844697710432287*^9}, {
+  3.8446979673937373`*^9, 
+  3.844698003001692*^9}},ExpressionUUID->"a5d3fd74-689a-4a0e-ba99-\
+6392d5d93808"]
 }, Open  ]],
 
 Cell["RSA ALGORITHM", "Subsubsubsection",
@@ -491,36 +556,37 @@ Cell[7222, 210, 665, 10, 59, "Output",ExpressionUUID->"a8f0f2fc-509c-4558-921e-b
 }, Open  ]],
 Cell[7902, 223, 838, 13, 96, "Item1",ExpressionUUID->"b51ca152-9300-42fc-8f39-2af8b16d3e22"],
 Cell[CellGroupData[{
-Cell[8765, 240, 3003, 65, 426, "Code",ExpressionUUID->"af641e49-3400-43d7-ba17-4e9374fb2262"],
-Cell[11771, 307, 433, 6, 84, "Output",ExpressionUUID->"68678b76-9dd1-4e78-846a-9f2ed88630f5"]
+Cell[8765, 240, 5084, 106, 631, "Code",ExpressionUUID->"af641e49-3400-43d7-ba17-4e9374fb2262"],
+Cell[13852, 348, 518, 8, 84, "Output",ExpressionUUID->"62131559-7a24-4870-abd8-02d50c7e8fba"]
 }, Open  ]],
-Cell[12219, 316, 596, 10, 66, "Item1",ExpressionUUID->"516d75e4-a03d-4fdc-90eb-3089d1bb878f"],
+Cell[14385, 359, 625, 11, 66, "Item1",ExpressionUUID->"516d75e4-a03d-4fdc-90eb-3089d1bb878f"],
 Cell[CellGroupData[{
-Cell[12840, 330, 312, 6, 101, "Code",ExpressionUUID->"8ed5782b-10fc-4bd7-bfe0-6e23326cc396"],
-Cell[13155, 338, 164, 2, 84, "Output",ExpressionUUID->"0fdb19aa-b2f1-4a00-b4cf-e44c9f4a8645"]
+Cell[15035, 374, 620, 11, 126, "Code",ExpressionUUID->"8ed5782b-10fc-4bd7-bfe0-6e23326cc396"],
+Cell[15658, 387, 345, 6, 84, "Output",ExpressionUUID->"06da3e52-3b3e-4db3-8c05-1a1ea2bb49e9"]
+}, Open  ]],
+Cell[16018, 396, 577, 10, 66, "Item1",ExpressionUUID->"a5d3fd74-689a-4a0e-ba99-6392d5d93808"]
+}, Open  ]],
+Cell[16610, 409, 169, 3, 37, "Subsubsubsection",ExpressionUUID->"64e7b586-892f-4690-a5b2-ed589928ab86"],
+Cell[16782, 414, 155, 3, 29, "Subsubsubsection",ExpressionUUID->"8df8c398-8783-4b29-96be-aa1a68d109fe"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16974, 422, 170, 3, 112, "Section",ExpressionUUID->"78457b40-4020-40d6-9f52-fe72a6e34023"],
+Cell[CellGroupData[{
+Cell[17169, 429, 754, 13, 96, "Item1",ExpressionUUID->"bd910780-14b9-407d-9133-7338ba7c2ad2"],
+Cell[17926, 444, 248, 6, 36, "Item1",ExpressionUUID->"ddc42479-4ff1-4c3a-a24c-8585a8f05eaa"]
 }, Open  ]]
 }, Open  ]],
-Cell[13346, 344, 169, 3, 37, "Subsubsubsection",ExpressionUUID->"64e7b586-892f-4690-a5b2-ed589928ab86"],
-Cell[13518, 349, 155, 3, 29, "Subsubsubsection",ExpressionUUID->"8df8c398-8783-4b29-96be-aa1a68d109fe"]
+Cell[CellGroupData[{
+Cell[18223, 456, 157, 3, 112, "Section",ExpressionUUID->"87353ee7-3c66-49bc-bc57-3674098db62b"],
+Cell[18383, 461, 215, 3, 36, "Item1",ExpressionUUID->"6a3caae4-2e7d-431c-a3dc-d87dd79f3b4b"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[13710, 357, 170, 3, 112, "Section",ExpressionUUID->"78457b40-4020-40d6-9f52-fe72a6e34023"],
-Cell[CellGroupData[{
-Cell[13905, 364, 754, 13, 96, "Item1",ExpressionUUID->"bd910780-14b9-407d-9133-7338ba7c2ad2"],
-Cell[14662, 379, 248, 6, 36, "Item1",ExpressionUUID->"ddc42479-4ff1-4c3a-a24c-8585a8f05eaa"]
-}, Open  ]]
+Cell[18635, 469, 178, 3, 112, "Section",ExpressionUUID->"f8e505be-ea19-489b-85e3-ce7d357b0733"],
+Cell[18816, 474, 200, 3, 36, "Item1",ExpressionUUID->"389a84a9-a43c-40ff-8fb2-68c9b9631280"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[14959, 391, 157, 3, 112, "Section",ExpressionUUID->"87353ee7-3c66-49bc-bc57-3674098db62b"],
-Cell[15119, 396, 215, 3, 36, "Item1",ExpressionUUID->"6a3caae4-2e7d-431c-a3dc-d87dd79f3b4b"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[15371, 404, 178, 3, 112, "Section",ExpressionUUID->"f8e505be-ea19-489b-85e3-ce7d357b0733"],
-Cell[15552, 409, 200, 3, 36, "Item1",ExpressionUUID->"389a84a9-a43c-40ff-8fb2-68c9b9631280"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[15789, 417, 157, 3, 112, "Section",ExpressionUUID->"5cae1b21-3c84-4f8a-a75c-fbc027b3c7b3"],
-Cell[15949, 422, 221, 3, 36, "Item1",ExpressionUUID->"7d567e7d-f27c-4d7f-b444-090cd5f002dc"]
+Cell[19053, 482, 157, 3, 112, "Section",ExpressionUUID->"5cae1b21-3c84-4f8a-a75c-fbc027b3c7b3"],
+Cell[19213, 487, 221, 3, 36, "Item1",ExpressionUUID->"7d567e7d-f27c-4d7f-b444-090cd5f002dc"]
 }, Open  ]]
 }, Open  ]]
 }
